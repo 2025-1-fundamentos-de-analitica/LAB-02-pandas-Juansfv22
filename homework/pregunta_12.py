@@ -22,3 +22,18 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
+    import pandas as pd
+
+    # Cargar el archivo tbl2.tsv
+    df = pd.read_csv('files/input/tbl2.tsv', sep='\t')
+
+    # Unir los valores de 'c5a' y 'c5b' separados por ':'
+    df['c5'] = df.apply(lambda row: f"{row['c5a']}:{row['c5b']}", axis=1)
+
+    # Agrupar por 'c0', unir los valores de 'c5' separados por ',' y ordenarlos alfabéticamente
+    result = df.groupby('c0')['c5'].apply(lambda x: ','.join(sorted(x)))
+
+    return result.reset_index()
+
+if __name__ == "__main__":
+    print(pregunta_12())

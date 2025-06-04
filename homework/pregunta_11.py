@@ -22,3 +22,16 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
+    import pandas as pd
+
+    # Cargar el archivo tbl1.tsv
+    df = pd.read_csv('files/input/tbl1.tsv', sep='\t')
+
+    # Agrupar por c0 y ordenar
+    values = df.groupby('c0')['c4'].apply(lambda x: sorted(x))
+
+    # Retornar la tabla con los resultados
+    return values.apply(lambda x: ','.join(x)).reset_index()
+
+if __name__ == "__main__":
+    print(pregunta_11())
